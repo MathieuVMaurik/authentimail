@@ -31,8 +31,23 @@ if(isset($_POST['email']))
     if($user)
     {
         //User found
-        $mail->Body = 'Successfully logged in user '.$user->username;
-        $mail->AltBody = 'Successfully logged in user '.$user->username;
+        $token = hash('SHA512', uniqid('mt_rand', true), false);
+
+        $stmt = $db->prepare("INSERT INTO authentications (token, user_ID, expiration_date) VALUES (:token, :user_ID, :expiration_date)");
+        $stmt->bindParam(':token', $token);
+        $stmt->bindParam(':user_ID', $user->ID);
+        $stmt->bindParam(':expiration_date', date('Y-m-d H:i:s', time() + 1800));
+        /*
+        var_dump($stmt);
+        echo '<br />'.$token;
+        echo '<br />'.$user->ID;
+        echo '<br />'.date('Y-m-d H:i:s', time() + 1800).'<br />';
+        */
+
+        $stmt->execute();
+
+        $mail->Body = '<p>Your login URL: <a href="http://localhost/authentimail/authenticate.php?token='.$token.'">Click, ya dingus</a></p>';
+        $mail->AltBody = 'Your login url: http://localhost/authentimail/authenticate.php?token='.$token;
 
     }
     else
