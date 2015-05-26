@@ -1,0 +1,9 @@
+div.errorbox{
+    background-color: #ee6a72;
+    border: solid black 2px;
+    display: inline-block;
+}
+
+div.errorbox ul li{
+    margin-right: 10px;
+}

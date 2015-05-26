@@ -1,38 +1,29 @@
-<?php
+<?php require 'authenticate.script.php'; ?>
 
-require 'include/db.php';
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Authentimail</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
 
-session_start();
+    <h1>Inloggen</h1>
 
-if(isset($_GET['token']))
-{
-    $stmt = $db->prepare('SELECT * FROM authentications WHERE token = :token');
-    $stmt->bindParam(':token', $_GET['token']);
-    $stmt->execute();
+    <?php if($errors): ?>
+    <div class="errorbox">
+        <ul>
+        <?php foreach($errors as $error): ?>
+            <li><?php echo $error; ?></li>
+        <?php endforeach; ?>
+        </ul>
+    </div>
+    <?php endif; ?>
 
-    $authentication = $stmt->fetch(PDO::FETCH_OBJ);
+    <?php if($authenticated): ?>
+        <p>U bent succesvol ingelogd.</p>
+        <p><a href="index.php">Klik hier</a> om verder te gaan.</p>
+    <?php endif; ?>
 
-    if($authentication)
-    {
-        //User authenticated
-        $stmt = $db->prepare('SELECT * FROM users WHERE ID = :id');
-        $stmt->bindParam(':id', $authentication->user_ID);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
-
-        $_SESSION['user_ID'] = $user->ID;
-        $_SESSION['user_name'] = $user->username;
-        echo '<p>Success!</p>';
-        echo '<p><a href="index.php">Terug</a></p>';
-    }
-    else
-    {
-        //User not authenticated
-        echo 'Invalid token!';
-    }
-}
-else
-{
-    header('HTTP/1.0 404 Not Found');
-    echo '404, $_GET["REKT"]';
-}
+    </body>
+</html>
