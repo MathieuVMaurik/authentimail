@@ -13,7 +13,7 @@ session_start();
 	<body>
 
 		<?php if(isset($_SESSION['user_ID'])): ?>
-			<p>Je bent ingelogd als <?php echo $_SESSION['user_name']; ?>. <a href="logout.php">Klik hier</a> om uit te loggen.</p>
+			<p>U bent ingelogd als <?php echo $_SESSION['user_name']; ?>. <a href="logout.php">Klik hier</a> om uit te loggen.</p>
 		<?php else: ?>
 			<p><a href="login.php">Inloggen</a></p>
 		<?php endif; ?>
