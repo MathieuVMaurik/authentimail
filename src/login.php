@@ -6,6 +6,9 @@
         <title>Inloggen</title>
     </head>
     <body>
+
+        <p><a href="index.php">Terug</a></p>
+
         <h1>Inloggen</h1>
 
         <?php if(isset($_POST['email'])): ?>
