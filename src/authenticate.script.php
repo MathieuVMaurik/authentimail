@@ -43,8 +43,7 @@ if(isset($_GET['token']) && isset($_COOKIE['client_token']))
     else
     {
         //User not authenticated
-        header('HTTP/1.0 404 Not Found');
-        echo '404';
+        header('errors/404.php');
         exit();
     }
 }
