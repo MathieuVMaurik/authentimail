@@ -50,13 +50,13 @@ if(isset($_GET['token']))
     }
     else
     {
-        header('errors/404.php');
+        header('Location: errors/404.php');
         exit();
     }
 }
 else
 {
-    header('HTTP/1.0 404 Not Found');
+    header('Location: errors/404.php');
     echo '404';
     exit();
 }
