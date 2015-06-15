@@ -18,7 +18,7 @@
 
         <form method="post">
             <p>
-                <label for="email">Email Adres</label>
+                <label for="email">E-mailadres</label>
                 <input type="text" name="email" />
             </p>
 

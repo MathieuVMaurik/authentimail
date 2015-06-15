@@ -2,12 +2,12 @@
 
 <html>
     <head>
-        <title>Authentimail - Account Aanpassen</title>
+        <title>Authentimail - Registreren</title>
         <link rel="stylesheet" type="text/css" href="include/style.css" />
     </head>
     <body>
 
-        <h1>Account Aanpassen</h1>
+        <h1>Registreren</h1>
 
         <?php if($errors): ?>
             <div class="errorbox">
