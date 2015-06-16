@@ -21,7 +21,7 @@ ErrorDocument    400 "Bad Request"
 ErrorDocument    401 "Unauthorized"
 ErrorDocument    402 "Payment Required"
 ErrorDocument    403 "Forbidden"
-ErrorDocument    404 http://localhost/authentimail/src/errors/fourohfour.php
+ErrorDocument    404 http://localhost/authentimail/src/errors/404.php
 ErrorDocument    405 "Method Not Allowed"
 ErrorDocument    406 "Not Acceptable"
 ErrorDocument    407 "Proxy Authentication Required"
