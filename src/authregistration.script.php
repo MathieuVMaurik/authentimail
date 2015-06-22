@@ -22,14 +22,16 @@ if(isset($_GET['token']))
             if(isset($_POST['username']))
             {
                 //Register user
-                $stmt = $db->prepare('INSERT INTO users (username, email) VALUES (:username, :email)');
+                $stmt = $db->prepare('INSERT INTO users (username, email, alt_email) VALUES (:username, :email, :altEmail)');
                 $stmt->bindParam(':username', $_POST['username']);
                 $stmt->bindParam(':email', $registration->email);
+                $stmt->bindParam(':altEmail', $_POST['AltEmail']);
                 $stmt->execute();
 
                 $_SESSION['user_ID'] = $db->lastInsertId();
                 $_SESSION['user_name'] = $_POST['username'];
                 $registered = true;
+
 
                 //Delete all pending registrations
                 $stmt = $db->prepare("DELETE FROM registrations WHERE token = :token");

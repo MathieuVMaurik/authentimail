@@ -43,7 +43,7 @@ if(isset($_GET['token']))
     {
         //User not authenticated
         header('HTTP/1.0 404 Not Found');
-        echo '404';
+        echo '404 not found get rekt';
         exit();
     }
 }
