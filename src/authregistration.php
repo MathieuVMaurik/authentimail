@@ -1,5 +1,5 @@
 <?php require 'authregistration.script.php'; ?>
-<script src="../src/include/JavaScript.js" language="Javascript" type="text/javascript"></script>
+<script src="include/JavaScript.js" language="Javascript" type="text/javascript"></script>
 
 
 <html>
