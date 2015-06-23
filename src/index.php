@@ -1,8 +1,4 @@
-<?php
-
-session_start();
-
-?>
+<?php require "index.script.php"; ?>
 
 <!DOCTYPE html>
 
@@ -24,6 +20,10 @@ session_start();
 			<p><a href="login.php">Inloggen</a></p>
             <p><a href="register.php">Registreren</a></p>
 		<?php endif; ?>
+
+        <?php if($is_admin): ?>
+            <p><a href="admin/admin.php">Gebruikers Account Beheer</a></p>
+        <?php endif; ?>
 
 	</body>
 </html>

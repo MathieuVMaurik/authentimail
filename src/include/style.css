@@ -7,3 +7,12 @@ div.errorbox{
 div.errorbox ul li{
     margin-right: 10px;
 }
+
+table.admin{
+    border-collapse: collapse;
+}
+
+table.admin td, table.admin th{
+    border: solid black 1px;
+    padding: 5px;
+}
