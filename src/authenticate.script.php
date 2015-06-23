@@ -7,10 +7,11 @@ session_start();
 $errors = array();
 $authenticated = false;
 
-if(isset($_GET['token']))
+if(isset($_GET['token']) && isset($_COOKIE['client_token']))
 {
-    $stmt = $db->prepare('SELECT * FROM authentications WHERE token = :token');
+    $stmt = $db->prepare('SELECT * FROM authentications WHERE token = :token AND client_token = :client_token');
     $stmt->bindParam(':token', $_GET['token']);
+    $stmt->bindParam(':client_token', $_COOKIE['client_token']);
     $stmt->execute();
 
     $authentication = $stmt->fetch(PDO::FETCH_OBJ);
@@ -42,8 +43,7 @@ if(isset($_GET['token']))
     else
     {
         //User not authenticated
-        header('HTTP/1.0 404 Not Found');
-        echo '404 not found get rekt';
+        header('Location: errors/404.php');
         exit();
     }
 }

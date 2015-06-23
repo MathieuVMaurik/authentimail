@@ -28,18 +28,8 @@ if(isset($_GET['token']))
                 $stmt->execute();
 
                 $_SESSION['user_ID'] = $db->lastInsertId();
-                foreach($_POST['AltEmail'] as $AltEmail)
-                {
-                    $Altstmt = $db->prepare('INSERT INTO alt_emails (user_ID, email) VALUES (:userID,:altmail)');
-                    $Altstmt->bindParam(':userID', $_SESSION['user_ID']);
-                    $Altstmt->bindParam('altmail', $AltEmail);
-                    $Altstmt->execute();
-                }
-
-
                 $_SESSION['user_name'] = $_POST['username'];
                 $registered = true;
-
 
                 //Delete all pending registrations
                 $stmt = $db->prepare("DELETE FROM registrations WHERE token = :token");
@@ -60,14 +50,13 @@ if(isset($_GET['token']))
     }
     else
     {
-        header('HTTP/1.0 404 Not Found');
-        echo '404';
+        header('Location: errors/404.php');
         exit();
     }
 }
 else
 {
-    header('HTTP/1.0 404 Not Found');
+    header('Location: errors/404.php');
     echo '404';
     exit();
 }

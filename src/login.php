@@ -26,7 +26,6 @@
                 <input name="submit" value="Login" type="submit" />
             </p>
         </form>
-        <p><a href="accountrecovery.php"> E-mail vergeten?</a></p>
 
     </body>
 </html>
