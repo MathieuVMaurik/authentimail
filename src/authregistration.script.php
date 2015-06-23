@@ -22,13 +22,21 @@ if(isset($_GET['token']))
             if(isset($_POST['username']))
             {
                 //Register user
-                $stmt = $db->prepare('INSERT INTO users (username, email, alt_email) VALUES (:username, :email, :altEmail)');
+                $stmt = $db->prepare('INSERT INTO users (username, email) VALUES (:username, :email)');
                 $stmt->bindParam(':username', $_POST['username']);
                 $stmt->bindParam(':email', $registration->email);
-                $stmt->bindParam(':altEmail', $_POST['AltEmail']);
                 $stmt->execute();
 
                 $_SESSION['user_ID'] = $db->lastInsertId();
+                foreach($_POST['AltEmail'] as $AltEmail)
+                {
+                    $Altstmt = $db->prepare('INSERT INTO alt_emails (user_ID, email) VALUES (:userID,:altmail)');
+                    $Altstmt->bindParam(':userID', $_SESSION['user_ID']);
+                    $Altstmt->bindParam('altmail', $AltEmail);
+                    $Altstmt->execute();
+                }
+
+
                 $_SESSION['user_name'] = $_POST['username'];
                 $registered = true;
 
