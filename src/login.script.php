@@ -34,9 +34,6 @@ if(isset($_POST['email']))
     $mail->addAddress($_POST['email']);
     $mail->Subject = Mailconfig::$subject_login;
 
-    //Generate a client token
-    $client_token = randomString();
-
     if($user)
     {
         //User found
@@ -46,13 +43,12 @@ if(isset($_POST['email']))
         $stmt->bindParam(':id', $user->ID);
         $stmt->execute();
 
-        $token = randomString();
+        $token = hash('SHA512', uniqid('mt_rand', true), false);
 
-        $stmt = $db->prepare("INSERT INTO authentications (token, user_ID, expiration_date, client_token) VALUES (:token, :user_ID, :expiration_date, :client_token)");
+        $stmt = $db->prepare("INSERT INTO authentications (token, user_ID, expiration_date) VALUES (:token, :user_ID, :expiration_date)");
         $stmt->bindParam(':token', $token);
         $stmt->bindParam(':user_ID', $user->ID);
         $stmt->bindParam(':expiration_date', date('Y-m-d H:i:s', time() + 600));
-        $stmt->bindParam(':client_token', $client_token);
         /*
         var_dump($stmt);
         echo '<br />'.$token;
@@ -60,26 +56,11 @@ if(isset($_POST['email']))
         echo '<br />'.date('Y-m-d H:i:s', time() + 1800).'<br />';
         */
 
-        if(!$stmt->execute())
-        {
-            var_dump($stmt->errorInfo());
-        }
+        $stmt->execute();
 
         $mail->Body = '<p>Your login URL: <a href="'. Config::$root_url .'authenticate.php?token='.$token.'">Click here to login.</a></p>';
         $mail->AltBody = 'Your login url: '. Config::$root_url .'authenticate.php?token='.$token;
 
         $mail->send();
     }
-
-    //Put the client token into a cookie
-    setcookie('client_token', $client_token, time() + 600);
-}
-
-/**
- * Generates a random string and hashes it with SHA256.
- * @return string A random string
- */
-function randomString()
-{
-    return hash('sha256', uniqid('mt_rand', true), false);
 }

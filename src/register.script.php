@@ -46,7 +46,7 @@ if(isset($_POST['email']))
     $mail->addAddress($_POST['email']);
     $mail->Subject = Mailconfig::$subject_register;
 
-    $token = randomString();
+    $token = hash('SHA512', uniqid('mt_rand', true), false);
 
     if($user_exists == true)
     {
@@ -80,13 +80,4 @@ if(isset($_POST['email']))
     }
     $mail->send();
     $registered = true;
-}
-
-/**
- * Generates a random string and hashes it with SHA256.
- * @return string A random string
- */
-function randomString()
-{
-    return hash('sha256', uniqid('mt_rand', true), false);
 }
