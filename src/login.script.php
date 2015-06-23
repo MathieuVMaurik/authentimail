@@ -16,7 +16,7 @@ if(isset($_POST['email']))
     //Get mail config
     require('include/mailconfig.php');
 
-    $stmt = $db->prepare('SELECT * FROM users WHERE email = :email');
+    $stmt = $db->prepare('SELECT * FROM users WHERE email = :email AND active = 1');
     $stmt->bindParam(':email', $_POST['email']);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_OBJ);
