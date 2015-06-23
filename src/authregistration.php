@@ -1,11 +1,12 @@
 <?php require 'authregistration.script.php'; ?>
-<script src="include/JavaScript.js" language="Javascript" type="text/javascript"></script>
 
+<!DOCTYPE html>
 
 <html>
     <head>
         <title>Authentimail - Registreren</title>
         <link rel="stylesheet" type="text/css" href="include/style.css" />
+        <script src="include/JavaScript.js" language="Javascript" type="text/javascript"></script>
     </head>
     <body>
 
